@@ -1,4 +1,5 @@
 import re
+from datetime import date
 
 from model.entity import *
 
@@ -6,20 +7,22 @@ from model.entity import *
 class Component(Base):
     __tablename__ = "component_tbl"
     component_id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String(20), nullable=False)
-    model = Column(String(20), nullable=False)
-    serial = Column(String(20), nullable=False)
-    description = Column(String(100))
+    _name = Column("name", String(50), nullable=False)
+    _model = Column("model", String(50), nullable=False)
+    _serial = Column("serial", String(50), nullable=False)
+    _description = Column("description", String(300), nullable=False)
+    _production_date = Column("production_date", Date, nullable=False)
 
     device_id = Column(Integer, ForeignKey("device_tbl.device_id"))
     device = relationship("Device")
 
-    def __init__(self, name, model, serial, description, device):
+    def __init__(self, name, model, serial, description, production_date, device):
         self.component_id = None
         self.name = name
         self.model = model
         self.serial = serial
         self.description = description
+        self.production_date = production_date
         self.device = device
 
     @property
@@ -50,7 +53,7 @@ class Component(Base):
 
     @serial.setter
     def serial(self, serial):
-        if re.match(r"^[0-9_ \s]+$", serial):
+        if re.match(r"^[-.\w\sآ-ی]+$", serial):
             self._serial = serial
         else:
             raise ValueError("سریال قطعه نامعتبر است")
@@ -61,7 +64,18 @@ class Component(Base):
 
     @description.setter
     def description(self, description):
-        if re.match(r"^[\w\sآ-ی]+$", description, re.I):
+        if re.match(r"^[-.,،()\w\sآ-ی]+$", description, re.I):
             self._description = description
         else:
             raise ValueError("توضیحات قطعه نامعتبر است ")
+
+    @property
+    def production_date(self):
+        return self._production_date
+
+    @production_date.setter
+    def production_date(self, production_date):
+        if isinstance(production_date, date):
+            self._production_date = production_date
+        else:
+            raise ValueError("تاریخ تولید نامعتبر است")

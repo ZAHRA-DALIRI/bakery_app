@@ -6,8 +6,8 @@ from model.entity import *
 class Sell(Base):
     __tablename__ = "sell_tbl"
     sell_id = Column(Integer, primary_key=True, autoincrement=True)
-    date_time = Column(DateTime)
-    price = Column(Integer)
+    _date_time = Column("date_time", DateTime)
+    _price = Column("price", String(100))
 
     device_id = Column(Integer, ForeignKey("device_tbl.device_id"))
     device = relationship("Device")
@@ -26,24 +26,13 @@ class Sell(Base):
         self.customer = customer
         self.employee = employee
 
-    # @property
-    # def sell_id(self):
-    #     return self._sell_id
-    #
-    # @sell_id.setter
-    # def sell_id(self, sell_id):
-    #     if isinstance(sell_id, int):
-    #         self._sell_id = sell_id
-    #     else:
-    #         raise ValueError("شناسه فروش نامعتبر است")
-
     @property
     def price(self):
         return self._price
 
     @price.setter
     def price(self, price):
-        if re.match("^[\w\sآ-ی]+$", price, re.I):
+        if re.match(r"^[,\w\sآ-ی]+$", price, re.I):
             self._price = price
         else:
             raise ValueError("مبلغ نامعتبر است")
