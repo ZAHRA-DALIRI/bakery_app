@@ -6,7 +6,7 @@ from model.entity import *
 
 from model.entity.sell import Sell
 
-customer1 = Customer("zahraaa", "daliri", "0023359951", "09120460699", "zahradaliri3@gmail.com",
+customer1 = Customer("zahraaa", "daliri", "1234567890", "09123456789", "zahradaliri3@gmail.com",
                      "تهران-شهریار", date(1379, 5, 12), True)
 
 c_da = DataAccess(Customer)
@@ -14,8 +14,8 @@ c_da.save(customer1)
 customer = c_da.find_all()
 print(customer1)
 
-employee1 = Employee("ربابه", "اشقاب", "6189839118",
-                     "09124231980", "dalirizahra29@gmail.com", "تهران",
+employee1 = Employee("ربابه", "اشقاب", "1234567890",
+                     "09123456789", "dalirizahra29@gmail.com", "تهران",
                      "د123", date(1345, 6, 3),
                      "کامپیوتر", "دیپلم", "18.88",
                      date(1360, 2, 24),

@@ -1,4 +1,4 @@
-from controller.exceptions.exceptoins import CustomerNotFoundError
+from controller import *
 from model.da.da import DataAccess
 from model.entity import Customer
 
@@ -48,3 +48,19 @@ class CustomerBl:
             return customer_list
         else:
             raise CustomerNotFoundError()
+
+    @staticmethod
+    def find_by_username(user_name):
+        customer_list = customer_da.find_by(Customer.user_name == user_name)
+        if customer_list:
+            return customer_list
+        else:
+            raise UsernameNotFoundError()
+
+    @staticmethod
+    def find_by_password(password):
+        customer_list = customer_da.find_by(Customer.password == password)
+        if customer_list:
+            return customer_list
+        else:
+            raise PasswordNotFoundError()

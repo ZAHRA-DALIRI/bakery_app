@@ -1,4 +1,4 @@
-from controller.exceptions.exceptoins import EmployeeNotFoundError
+from controller import *
 from model.da.da import DataAccess
 from model.entity import Employee
 
@@ -48,3 +48,19 @@ class EmployeeBl:
             return employee_list
         else:
             raise EmployeeNotFoundError()
+
+    @staticmethod
+    def find_by_username(user_name):
+        employee_list = employee_da.find_by(Employee.user_name == user_name)
+        if employee_list:
+            return employee_list
+        else:
+            raise UsernameNotFoundError()
+
+    @staticmethod
+    def find_by_password(password):
+        employee_list = employee_da.find_by(Employee.password == password)
+        if employee_list:
+            return employee_list
+        else:
+            raise PasswordNotFoundError()

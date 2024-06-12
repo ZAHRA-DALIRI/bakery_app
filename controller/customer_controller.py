@@ -35,3 +35,13 @@ class CustomerController:
     @exception_handling
     def find_by_family(family):
         return True, CustomerBl.find_by_family(family)
+
+    @staticmethod
+    @exception_handling
+    def find_by_username(username):
+        return True, CustomerBl.find_by_username(username)
+
+    @staticmethod
+    @exception_handling
+    def find_by_password(password):
+        return True, CustomerBl.find_by_password(password)

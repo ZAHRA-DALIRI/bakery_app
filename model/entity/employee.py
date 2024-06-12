@@ -9,25 +9,27 @@ class Employee(Base):
     employee_id = Column(Integer, primary_key=True, autoincrement=True)
     _name = Column("name", String(20), nullable=False)
     _family = Column("family", String(20), nullable=False)
-    _national_code = Column("national_code", String(10), unique=True, nullable=False)
+    _national_code = Column("national_code", String(15), unique=True, nullable=False)
     _phone_number = Column("phone_number", String(20), nullable=False)
-    _email = Column("email", String(50), nullable=False)
-    _address = Column("address", String(40), nullable=False)
-    _birth_certificate_number = Column("birth_certificate_number", String(20), unique=True, nullable=False)
+    _email = Column("email", String(80), nullable=False)
+    _address = Column("address", String(150), nullable=False)
+    _birth_certificate_number = Column("birth_certificate_number", String(50), unique=True, nullable=False)
     _birth_date = Column("birth_date", Date, nullable=False)
-    _field_of_study = Column("field_of_study", String(50), nullable=False)
-    _grade = Column("grade", String(20), nullable=False)
-    _average = Column("average", String(10), nullable=False)
+    _field_of_study = Column("field_of_study", String(100), nullable=False)
+    _grade = Column("grade", String(50), nullable=False)
+    _average = Column("average", String(30), nullable=False)
     _start_date = Column("start_date", Date, nullable=False)
     _completion_date = Column("completion_date", Date, nullable=False)
-    _university_name = Column("university_name", String(50), nullable=False)
+    _university_name = Column("university_name", String(100), nullable=False)
+    _user_name = Column("user_name", String(30), nullable=False)
+    _password = Column("password", String(30), nullable=False)
     _status = Column("status", Boolean, default=True)
 
     sells = relationship("Sell", back_populates="employee")
 
     def __init__(self, name, family, national_code, phone_number, email, address,
                  birth_certificate_number, birth_date, field_of_study, grade, average, start_date,
-                 completion_date, university_name, status=True):
+                 completion_date, university_name, user_name, password, status=True):
         self.employee_id = None
         self.name = name
         self.family = family
@@ -43,6 +45,8 @@ class Employee(Base):
         self.start_date = start_date
         self.completion_date = completion_date
         self.university_name = university_name
+        self.user_name = user_name
+        self.password = password
         self.status = status
 
     @property
@@ -51,7 +55,7 @@ class Employee(Base):
 
     @name.setter
     def name(self, name):
-        if re.match(r"^[A-Za-zآ-ی_\-\s]+$", name, re.I):
+        if re.match(r"^[A-Za-zآ-ی_\-\s.]+$", name, re.I):
             self._name = name
         else:
             raise ValueError("نام نامعتبر است")
@@ -62,7 +66,7 @@ class Employee(Base):
 
     @family.setter
     def family(self, family):
-        if re.match(r"^[A-Za-zآ-ی_\-\s]+$", family, re.I):
+        if re.match(r"^[A-Za-zآ-ی_\-\s.]+$", family, re.I):
             self._family = family
         else:
             raise ValueError(" فامیلی نامعتبر است")
@@ -73,7 +77,7 @@ class Employee(Base):
 
     @national_code.setter
     def national_code(self, national_code):
-        if re.match(r"^[\d{3}_\d{7}\s]+$", national_code):
+        if re.match(r"^[\d-_\s]+$", national_code):
             self._national_code = national_code
         else:
             raise ValueError("کد ملی نامعتبر است")
@@ -84,7 +88,7 @@ class Employee(Base):
 
     @phone_number.setter
     def phone_number(self, phone_number):
-        if re.match(r"^[\d\s-]+$", phone_number):
+        if re.match(r"^[-._\d+\s]+$", phone_number):
             self._phone_number = phone_number
         else:
             raise ValueError("شماره تلفن نامعتبر است")
@@ -106,7 +110,7 @@ class Employee(Base):
 
     @address.setter
     def address(self, address):
-        if re.match(r"^[\w\sآ-ی]+$", address, re.I):
+        if re.match(r"^[.،()?؟!{}+,\w\sآ-ی]+$", address, re.I):
             self._address = address
         else:
             raise ValueError("آدرس نامعتبر است ")
@@ -117,7 +121,7 @@ class Employee(Base):
 
     @birth_certificate_number.setter
     def birth_certificate_number(self, birth_certificate_number):
-        if re.match(r"^[\w\sآ-ی]+$", birth_certificate_number, re.I):
+        if re.match(r"^[-.\w\sآ-ی]+$", birth_certificate_number, re.I):
             self._birth_certificate_number = birth_certificate_number
         else:
             raise ValueError("شماره شناسنامه نامعتبر است")
@@ -139,7 +143,7 @@ class Employee(Base):
 
     @field_of_study.setter
     def field_of_study(self, field_of_study):
-        if re.match(r"^[\w\sآ-ی]+$", field_of_study, re.I):
+        if re.match(r"^[،(),-.\w\sآ-ی]+$", field_of_study, re.I):
             self._field_of_study = field_of_study
         else:
             raise ValueError("رشته ی تحصیلی نامعتبر است")
@@ -150,7 +154,7 @@ class Employee(Base):
 
     @grade.setter
     def grade(self, grade):
-        if re.match(r"^[\w\sآ-ی]+$", grade, re.I):
+        if re.match(r"^[،(),-.\w\sآ-ی]+$", grade, re.I):
             self._grade = grade
         else:
             raise ValueError("مقطع تحصیلی نامعتبر است")
@@ -161,7 +165,7 @@ class Employee(Base):
 
     @average.setter
     def average(self, average):
-        if re.match(r"^[\w\sآ-ی.]+$", average, re.I):
+        if re.match(r"^[،(),-.\w\sآ-ی.]+$", average, re.I):
             self._average = average
         else:
             raise (ValueError("معدل نامعتبر است"))
@@ -194,7 +198,40 @@ class Employee(Base):
 
     @university_name.setter
     def university_name(self, university_name):
-        if re.match(r"^[\w\sآ-ی]+$", university_name, re.I):
+        if re.match(r"^[،(),-.\w\sآ-ی]+$", university_name, re.I):
             self._university_name = university_name
         else:
             raise ValueError("نام دانشگاه نامعتبر است")
+
+    @property
+    def user_name(self):
+        return self._user_name
+
+    @user_name.setter
+    def user_name(self, user_name):
+        if re.match(r"^[-.@#*!$%^&\w\sآ-ی]+$", user_name, re.I):
+            self.user_name = user_name
+        else:
+            raise ValueError("نام کاربری نامعتبر است")
+
+    @property
+    def password(self):
+        return self._password
+
+    @password.setter
+    def password(self, password):
+        if re.match(r"^[-.@#*!$%^&\w\sآ-ی]+$", password, re.I):
+            self.password = password
+        else:
+            raise ValueError("کلمه عبور نامعتبر است")
+
+    @property
+    def status(self):
+        return self._status
+
+    @status.setter
+    def status(self, status):
+        if isinstance(status, bool):
+            self._status = status
+        else:
+            raise ValueError("وضعیت نامعتبر است")

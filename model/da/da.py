@@ -61,6 +61,14 @@ class DataAccess:
         entity = session.get(self.class_name, component_id)
         return entity
 
-    def national_code(self, national_code):
+    def find_by_national_code(self, national_code):
         entity = session.get(self.class_name, national_code)
+        return entity
+
+    def find_by_user_name(self, user_name):
+        entity = session.get(self.class_name, user_name)
+        return entity
+
+    def find_by_password(self, password):
+        entity = session.get(self.class_name, password)
         return entity

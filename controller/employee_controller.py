@@ -43,3 +43,13 @@ class EmployeeController:
     @exception_handling
     def find_by_family(family):
         return True, EmployeeBl.find_by_family(family)
+
+    @staticmethod
+    @exception_handling
+    def find_by_username(username):
+        return True, EmployeeBl.find_by_username(username)
+
+    @staticmethod
+    @exception_handling
+    def find_by_password(password):
+        return True, EmployeeBl.find_by_password(password)

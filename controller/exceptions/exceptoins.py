@@ -16,3 +16,18 @@ class DeviceNotFoundError(Exception):
 class ComponentNotFoundError(Exception):
     def __init__(self):
         Exception.__init__(self, "Component not found")
+
+
+class DuplicateUsernameError(Exception):
+    def __init__(self):
+        Exception.__init__(self, "Duplicate username !!!")
+
+
+class UsernameNotFoundError(Exception):
+    def __init__(self):
+        Exception.__init__(self, "Username not found")
+
+
+class PasswordNotFoundError(Exception):
+    def __init__(self):
+        Exception.__init__(self, "Password not found")

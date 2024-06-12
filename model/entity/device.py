@@ -13,7 +13,6 @@ class Device(Base):
 
     components = relationship("Component", back_populates="device")
 
-
     def __init__(self, name, model, production_date):
         self.device_id = None
         self.name = name
@@ -26,7 +25,7 @@ class Device(Base):
 
     @name.setter
     def name(self, name):
-        if re.match(r"^[-\w\sآ-ی]+$", name, re.I):
+        if re.match(r"^[A-Za-zآ-ی_\-\s.]+$", name, re.I):
             self._name = name
         else:
             raise ValueError("نام دستگاه نامعتبر است ")
@@ -37,7 +36,7 @@ class Device(Base):
 
     @model.setter
     def model(self, model):
-        if re.match(r"^[-\w\s()آ-ی]+$", model, re.I):
+        if re.match(r"^[,-.\w\s()آ-ی]+$", model, re.I):
             self._model = model
         else:
             raise ValueError("مدل دستگاه نامعتبر است")

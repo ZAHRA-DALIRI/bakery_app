@@ -32,7 +32,7 @@ class Sell(Base):
 
     @price.setter
     def price(self, price):
-        if re.match(r"^[,\w\sآ-ی]+$", price, re.I):
+        if re.match(r"^[= %*!-+$#().،,\w\sآ-ی]+$", price, re.I):
             self._price = price
         else:
             raise ValueError("مبلغ نامعتبر است")

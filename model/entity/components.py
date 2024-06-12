@@ -9,7 +9,7 @@ class Component(Base):
     component_id = Column(Integer, primary_key=True, autoincrement=True)
     _name = Column("name", String(50), nullable=False)
     _model = Column("model", String(50), nullable=False)
-    _serial = Column("serial", String(50), nullable=False)
+    _serial = Column("serial", String(100), nullable=False)
     _description = Column("description", String(300), nullable=False)
     _production_date = Column("production_date", Date, nullable=False)
 
@@ -31,7 +31,7 @@ class Component(Base):
 
     @name.setter
     def name(self, name):
-        if re.match(r"^[\w\sآ-ی]+$", name, re.I):
+        if re.match(r"^[A-Za-zآ-ی_\-\s.]+$", name, re.I):
             self._name = name
         else:
             raise ValueError("نام قطعه نامعتبر است ")
@@ -42,7 +42,7 @@ class Component(Base):
 
     @model.setter
     def model(self, model):
-        if re.match(r"^[\w\sآ-ی]+$", model, re.I):
+        if re.match(r"^[,-.\w\sآ-ی]+$", model, re.I):
             self._model = model
         else:
             raise ValueError("مدل قطعه نامعتبر است")
@@ -53,7 +53,7 @@ class Component(Base):
 
     @serial.setter
     def serial(self, serial):
-        if re.match(r"^[-.\w\sآ-ی]+$", serial):
+        if re.match(r"^[,-.\w\sآ-ی]+$", serial):
             self._serial = serial
         else:
             raise ValueError("سریال قطعه نامعتبر است")
