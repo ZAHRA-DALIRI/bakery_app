@@ -9,7 +9,7 @@ class Logger:
         format="%(asctime)s - %(levelname)5s - %(message)s",
         encoding="UTF-8",
         handlers=[
-            logging.FileHandler("d:/logging.log"),
+            logging.FileHandler("e:/logging.log"),
             logging.StreamHandler(sys.stdout)
         ]
     )
