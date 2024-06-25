@@ -103,14 +103,14 @@ class EmployeeView:
             msg.showerror("خطای ویرایش", message)
 
     def remove_click(self):
-        status, message = EmployeeController.remove(self.customer_id.variable.get())
+        status, message = EmployeeController.remove(self.employee_id.variable.get())
         if status:
             msg.showinfo("حدف کارمند", "اطلاعات کارمند با موفقیت حدف شد ")
             self.reset_form()
         else:
             msg.showerror("خطای حذف", message)
 
-    def find_by_family(self, event):
+    def find_by_family(self, family):
         status, employee_list = EmployeeController.find_by_family(self.search_family.variable.get())
         if status:
             self.table.refresh_table(employee_list)
@@ -125,21 +125,21 @@ class EmployeeView:
 
         win.protocol("WM_DELETE_WINDOW", self.close_form)
 
-        self.customer_id = TextWithLabel(win, "شناسه کارمند", 20, 20, disabled=True)
+        self.employee_id = TextWithLabel(win, "شناسه کارمند", 20, 20, disabled=True)
         self.name = TextWithLabel(win, "نام", 20, 60)
         self.family = TextWithLabel(win, "نام خانوادگی", 20, 100)
         self.national_code = TextWithLabel(win, "کد ملی", 20, 140)
         self.phone_number = TextWithLabel(win, "شماره تلفن", 20, 180)
         self.email = TextWithLabel(win, "ایمیل", 20, 120)
         self.address = TextWithLabel(win, "آدرس", 20, 160)
-        self.birth_certificate_number= TextWithLabel(win, "شماره شناسنامه", 20, 200)
+        self.birth_certificate_number = TextWithLabel(win, "شماره شناسنامه", 20, 200)
         self.birth_date = TextWithLabel(win, "تاریخ تولد", 20, 240)
-        self.field_of_study= TextWithLabel(win, "رشته تحصیلی", 20, 240)
-        self.grade.variable= TextWithLabel(win, "مقطع", 20, 280)
-        self.average.variable= TextWithLabel(win, "معدل", 20, 320)
-        self.start_date.variable= TextWithLabel(win, "تاریخ شروع", 20, 360)
-        self.completion_date.variable= TextWithLabel(win, "تاریخ اتمام", 20, 400)
-        self.university_name.variable= TextWithLabel(win, "نام دانشگاه", 20, 440)
+        self.field_of_study = TextWithLabel(win, "رشته تحصیلی", 20, 240)
+        self.grade = TextWithLabel(win, "مقطع", 20, 280)
+        self.average = TextWithLabel(win, "معدل", 20, 320)
+        self.start_date = TextWithLabel(win, "تاریخ شروع", 20, 360)
+        self.completion_date = TextWithLabel(win, "تاریخ اتمام", 20, 400)
+        self.university_name = TextWithLabel(win, "نام دانشگاه", 20, 440)
         self.user_name = TextWithLabel(win, "نام کاربری", 20, 500)
         self.password = TextWithLabel(win, "رمز عبور", 20, 540)
         self.status = TextWithLabel(win, "وضعیت", 20, 600)
